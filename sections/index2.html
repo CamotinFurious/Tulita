@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index — Alex Rivera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../index.css">
+<style>
+  html, body { overflow: hidden; height: 100%; }
+
+  .index-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 50vh;
+    gap: 1px;
+    background: #000;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .index-grid::-webkit-scrollbar { display: none; }
+
+  .grid-item {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    background: #111;
+  }
+
+  .grid-item-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity .5s ease;
+    filter: none;
+  }
+  .grid-item:hover .grid-item-bg { opacity: 1; }
+
+  img.grid-item-bg { filter: brightness(.7) saturate(.5); }
+  img.grid-item-bg { opacity: 1; filter: brightness(.7) saturate(.5); }
+
+  video.grid-item-bg { filter: none; }
+
+  /* en hover: video aparece, imagen se oculta */
+  .grid-item:hover video.grid-item-bg { opacity: 1; }
+  .grid-item:hover img.grid-item-bg { opacity: 0; }
+
+ .grid-item-text {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center;
+  width: 100%;
+  padding: 1.5rem;
+}
+
+  .grid-title {
+    font-size: 18px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: .4rem;
+  }
+
+  .grid-subtitle {
+    font-size: 11px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    line-height: 1;
+  }
+
+  .grid-item a.grid-cover {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    cursor: none;
+  }
+
+  @media (max-width: 600px) {
+    body { cursor: auto; }
+    .cur { display: none; }
+    .index-grid { grid-template-columns: 1fr; grid-auto-rows: 40vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<nav>
+  <a class="nav-tl" href="../index.html">Jhared Tula</a>
+  <a class="nav-tr" href="info.html">Info</a>
+  <a class="nav-bl" href="journal.html">Journal</a>
+  <a class="nav-br" href="index2.html">Index</a>
+</nav>
+
+<div class="index-grid">
+
+<div class="grid-item">
+  <img class="grid-item-bg" 
+    src="../assets/images/journal/The_Bluebelles.png"
+    alt="">
+  <video class="grid-item-bg grid-item-video" 
+    src="../assets/videos/project1/lopp1.1.mp4" 
+    muted loop playsinline>
+  </video>
+  <div class="grid-item-text">
+    <p class="grid-title">The Bluebelles</p>
+    <p class="grid-subtitle">Short Documentary</p>
+  </div>
+  <a class="grid-cover" href="#"></a>
+</div>
+
+  <div class="grid-item">
+    <video class="grid-item-bg" src="../assets/videos/project2/clip.mp4" autoplay muted loop playsinline></video>
+    <div class="grid-item-text">
+      <p class="grid-title">4:47 AM</p>
+      <p class="grid-subtitle">Documentary</p>
+    </div>
+    <a class="grid-cover" href="#"></a>
+  </div>
+
+  <div class="grid-item">
+    <video class="grid-item-bg" src="../assets/videos/project3/clip.mp4" autoplay muted loop playsinline></video>
+    <div class="grid-item-text">
+      <p class="grid-title">Drift</p>
+      <p class="grid-subtitle">Short Film</p>
+    </div>
+    <a class="grid-cover" href="#"></a>
+  </div>
+
+  <div class="grid-item">
+    <video class="grid-item-bg" src="../assets/videos/project4/clip.mp4" autoplay muted loop playsinline></video>
+    <div class="grid-item-text">
+      <p class="grid-title">Undertow</p>
+      <p class="grid-subtitle">Son Lux</p>
+    </div>
+    <a class="grid-cover" href="#"></a>
+  </div>
+
+  <div class="grid-item">
+    <video class="grid-item-bg" src="../assets/videos/project5/clip.mp4" autoplay muted loop playsinline></video>
+    <div class="grid-item-text">
+      <p class="grid-title">No Signal</p>
+      <p class="grid-subtitle">Documentary</p>
+    </div>
+    <a class="grid-cover" href="#"></a>
+  </div>
+
+  <div class="grid-item">
+    <video class="grid-item-bg" src="../assets/videos/project6/clip.mp4" autoplay muted loop playsinline></video>
+    <div class="grid-item-text">
+      <p class="grid-title">Oleander</p>
+      <p class="grid-subtitle">Short Film</p>
+    </div>
+    <a class="grid-cover" href="#"></a>
+  </div>
+
+</div>
+
+<script>
+const cur = document.getElementById('cur');
+
+// oculto hasta que el mouse se mueva
+cur.style.opacity = '0';
+
+document.addEventListener('mousemove', e => {
+  cur.style.opacity = '1';
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+
+document.querySelectorAll('.grid-item').forEach(item => {
+  const video = item.querySelector('.grid-item-video');
+  if (!video) return;
+  item.addEventListener('mouseenter', () => video.play());
+  item.addEventListener('mouseleave', () => {
+    video.pause();
+    video.currentTime = 0;
+  });
+});
+
+</script>
+
+</body>
+</html>

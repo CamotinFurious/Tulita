@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journal — Alex Rivera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../index.css">
+<style>
+
+  /* ── override: scroll en esta página ── */
+  html, body { overflow: hidden; height: 100%; }
+
+  .journal-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    overflow-y: auto;
+    padding: 4rem 1px 1px;
+    scrollbar-width: none;
+  }
+  .journal-wrap::-webkit-scrollbar { display: none; }
+
+  /* ── GRID DE FOTOS ── */
+  /*
+    Grilla masonry-like de 3 columnas con gap de 1px (igual que Alex Cook).
+    Cada imagen ocupa su altura natural.
+    Para cambiar el número de columnas modifica grid-template-columns.
+  */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #000;
+  }
+
+  .photo-item {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+    background: #1a1a1a;
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity .3s ease;
+    aspect-ratio: 4/3;  /* cambia a 3/4 para fotos verticales */
+  }
+
+  .photo-grid:hover .photo-item img { opacity: .5; }
+  .photo-grid:hover .photo-item:hover img { opacity: 1; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: #000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+
+  .lb-img-wrap {
+    position: relative;
+    max-width: 65vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lb-img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* contador arriba-izquierda */
+  .lb-counter {
+    position: fixed;
+    top: 0; left: 0;
+    padding: 1.2rem 1.4rem;
+    font-size: 11px;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,0.55);
+    z-index: 51;
+  }
+
+  /* cerrar arriba-derecha */
+  .lb-close {
+    position: fixed;
+    top: 0; right: 0;
+    padding: 1.2rem 1.4rem;
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    cursor: none;
+    z-index: 51;
+    background: none;
+    border: none;
+    transition: color .2s;
+    line-height: 1;
+  }
+  .lb-close:hover { color: #fff; }
+
+  /* flechas laterales */
+  .lb-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 1.2rem 1.8rem;
+    font-size: 22px;
+    color: rgba(255,255,255,0.4);
+    cursor: none;
+    background: none;
+    border: none;
+    z-index: 51;
+    transition: color .2s;
+    line-height: 1;
+  }
+  .lb-arrow:hover { color: #fff; }
+  .lb-prev { left: 0; }
+  .lb-next { right: 0; }
+
+  @media (max-width: 600px) {
+    body { cursor: auto; }
+    .cur { display: none; }
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    .lb-img-wrap { max-width: 95vw; }
+    .lb-arrow { padding: .8rem 1rem; font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-tl" href="../index.html">Alex Rivera</a>
+  <a class="nav-tr" href="info.html">Info</a>
+  <a class="nav-bl" href="journal.html">Journal</a>
+  <a class="nav-br" href="index2.html">Index</a>
+</nav>
+
+<!-- PHOTO GRID -->
+<!--
+  Para agregar fotos:
+  1. Sube las imágenes a assets/images/journal/
+  2. Copia un .photo-item y cambia el src
+  3. El lightbox se genera automáticamente con JS
+  Puedes mezclar fotos horizontales y verticales —
+  cambia el aspect-ratio en el CSS si lo necesitas por foto.
+-->
+<div class="journal-wrap">
+  <div class="photo-grid" id="grid">
+
+    <div class="photo-item">
+      <img src="../assets/images/journal/Influx.png" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/Playful_Again.png" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/The_Bluebelles.png" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto4.jpg" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto5.jpg" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto6.jpg" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto7.jpg" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto8.jpg" alt="">
+    </div>
+    <div class="photo-item">
+      <img src="../assets/images/journal/foto9.jpg" alt="">
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-counter" id="lbCounter">1 / 9</span>
+  <button class="lb-close" id="lbClose">✕</button>
+  <button class="lb-arrow lb-prev" id="lbPrev">←</button>
+  <div class="lb-img-wrap">
+    <img class="lb-img" id="lbImg" src="" alt="">
+  </div>
+  <button class="lb-arrow lb-next" id="lbNext">→</button>
+</div>
+
+<script>
+  const cur = document.getElementById('cur');
+
+// oculto hasta que el mouse se mueva
+cur.style.opacity = '0';
+
+document.addEventListener('mousemove', e => {
+  cur.style.opacity = '1';
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+
+  // ── Lightbox ──
+  const items   = Array.from(document.querySelectorAll('.photo-item img'));
+  const lb      = document.getElementById('lightbox');
+  const lbImg   = document.getElementById('lbImg');
+  const lbCount = document.getElementById('lbCounter');
+  const total   = items.length;
+  let current   = 0;
+
+  function openLb(index) {
+    current = index;
+    lbImg.src = items[current].src;
+    lbCount.textContent = `${current + 1} / ${total}`;
+    lb.classList.add('open');
+  }
+
+  function closeLb() {
+    lb.classList.remove('open');
+  }
+
+  function prev() {
+    current = (current - 1 + total) % total;
+    lbImg.src = items[current].src;
+    lbCount.textContent = `${current + 1} / ${total}`;
+  }
+
+  function next() {
+    current = (current + 1) % total;
+    lbImg.src = items[current].src;
+    lbCount.textContent = `${current + 1} / ${total}`;
+  }
+
+  items.forEach((img, i) => {
+    img.parentElement.addEventListener('click', () => openLb(i));
+  });
+
+  document.getElementById('lbClose').addEventListener('click', closeLb);
+  document.getElementById('lbPrev').addEventListener('click', prev);
+  document.getElementById('lbNext').addEventListener('click', next);
+
+  // click en el fondo cierra
+  lb.addEventListener('click', e => {
+    if (e.target === lb) closeLb();
+  });
+
+  // flechas del teclado
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'ArrowLeft')  prev();
+    if (e.key === 'ArrowRight') next();
+    if (e.key === 'Escape')     closeLb();
+  });
+</script>
+
+</body>
+</html>

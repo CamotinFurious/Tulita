@@ -4,593 +4,114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jhared Tula — Filmmaker</title>
-<meta name="description" content="Jhared Tula — Director, Editor & Producer based in Atlanta, GA.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0e0e0d;
-    --ink: #ede9e1;
-    --dim: rgba(237,233,225,0.35);
-    --line: rgba(237,233,225,0.1);
-    --hi: #d4c5a4;
-    --sans: 'Bebas Neue', sans-serif;
-    --serif: 'EB Garamond', Georgia, serif;
-    --mono: 'DM Mono', 'Courier New', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .04em;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* ── CURSOR ── */
-  .cursor {
-    position: fixed;
-    width: 8px;
-    height: 8px;
-    background: var(--ink);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width .15s, height .15s, background .15s, border .15s;
-  }
-  .cursor.big {
-    width: 52px;
-    height: 52px;
-    background: transparent;
-    border: 1px solid var(--hi);
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.4rem 2rem;
-    mix-blend-mode: difference;
-  }
-  .nav-name {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a {
-    color: var(--dim);
-    text-decoration: none;
-    font-size: 10px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    transition: color .2s;
-  }
-  .nav-links a:hover { color: var(--ink); }
-
-  /* ── HERO ── */
-  .hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
-    position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid var(--line);
-  }
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-size: cover;
-    background-position: center;
-    filter: brightness(.28) saturate(.4);
-    transform: scale(1.03);
-    transition: background-image 1.2s ease;
-  }
-  .hero-body { position: relative; z-index: 2; }
-  .hero-index {
-    font-size: 10px;
-    letter-spacing: .25em;
-    color: var(--dim);
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-  }
-  h1.hero-name {
-    font-family: var(--sans);
-    font-size: clamp(5rem, 14vw, 11rem);
-    line-height: .9;
-    letter-spacing: .02em;
-    color: var(--ink);
-    text-transform: uppercase;
-  }
-  h1.hero-name span {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: .65em;
-    letter-spacing: -.01em;
-    color: var(--hi);
-    text-transform: none;
-  }
-  .hero-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--line);
-  }
-  .hero-desc {
-    color: var(--dim);
-    max-width: 260px;
-    line-height: 1.85;
-    font-size: 10px;
-  }
-  .hero-roles {
-    text-align: right;
-    color: var(--dim);
-    font-size: 10px;
-    line-height: 2;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-
-  /* ── MARQUEE ── */
-  .marquee-wrap {
-    overflow: hidden;
-    border-bottom: 1px solid var(--line);
-    padding: .6rem 0;
-  }
-  .marquee-track {
-    display: flex;
-    gap: 3rem;
-    white-space: nowrap;
-    animation: marquee 22s linear infinite;
-  }
-  .marquee-track span {
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--dim);
-  }
-  .marquee-track span.sep { color: var(--line); }
-  @keyframes marquee {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* ── WORK LIST ── */
-  #work { padding: 0 2rem; }
-  .work-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 3rem 0 1.5rem;
-    border-bottom: 1px solid var(--line);
-  }
-  .work-header-label {
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--dim);
-  }
-  .work-count {
-    font-family: var(--sans);
-    font-size: 2rem;
-    color: var(--line);
-  }
-
-  .work-item {
-    position: relative;
-    border-bottom: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 3rem 1fr auto;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1.1rem 0;
-    cursor: none;
-    transition: background .25s;
-    text-decoration: none;
-  }
-  .work-item:hover { background: rgba(237,233,225,.03); }
-
-  .w-num {
-    font-size: 10px;
-    color: var(--dim);
-    letter-spacing: .1em;
-  }
-  .w-title {
-    font-family: var(--sans);
-    font-size: clamp(1.8rem, 4vw, 3.2rem);
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    color: var(--ink);
-    line-height: 1;
-    transition: color .2s, letter-spacing .3s;
-  }
-  .work-item:hover .w-title {
-    color: var(--hi);
-    letter-spacing: .08em;
-  }
-  .w-meta {
-    text-align: right;
-    color: var(--dim);
-    font-size: 10px;
-    line-height: 1.9;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-
-  /* ── HOVER IMAGE PREVIEW ── */
-  .w-preview {
-    position: fixed;
-    width: 280px;
-    height: 175px;
-    pointer-events: none;
-    z-index: 50;
-    opacity: 0;
-    transform: scale(.92) rotate(-1deg);
-    transition: opacity .3s, transform .35s;
-    overflow: hidden;
-  }
-  .w-preview img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(.55) brightness(.8);
-  }
-
-  /* ── ABOUT ── */
-  #about {
-    padding: 5rem 2rem;
-    border-top: 1px solid var(--line);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-  .about-tag {
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--dim);
-    margin-bottom: 2rem;
-  }
-  .about-statement {
-    font-family: var(--serif);
-    font-size: clamp(1.6rem, 3vw, 2.4rem);
-    line-height: 1.3;
-    font-weight: 400;
-    color: var(--ink);
-    margin-bottom: 2rem;
-  }
-  .about-statement em { color: var(--hi); }
-  .about-body {
-    color: var(--dim);
-    font-size: 10px;
-    line-height: 1.95;
-    max-width: 380px;
-  }
-  .about-row {
-    display: flex;
-    justify-content: space-between;
-    padding: .9rem 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 10px;
-  }
-  .about-row-label {
-    color: var(--dim);
-    letter-spacing: .15em;
-    text-transform: uppercase;
-  }
-  .about-row-val {
-    color: var(--ink);
-    text-align: right;
-    line-height: 1.7;
-  }
-
-  /* ── CONTACT ── */
-  #contact {
-    padding: 4rem 2rem 2rem;
-    border-top: 1px solid var(--line);
-  }
-  .contact-headline {
-    font-family: var(--sans);
-    font-size: clamp(3rem, 9vw, 7rem);
-    line-height: .95;
-    text-transform: uppercase;
-    letter-spacing: .02em;
-    color: var(--ink);
-    margin-bottom: 2.5rem;
-  }
-  .contact-headline em {
-    font-family: var(--serif);
-    font-style: italic;
-    text-transform: none;
-    color: var(--hi);
-    font-size: .75em;
-  }
-  .contact-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--line);
-  }
-  .contact-links {
-    display: flex;
-    gap: 2rem;
-  }
-  .contact-links a {
-    color: var(--dim);
-    text-decoration: none;
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    transition: color .2s;
-    border-bottom: 1px solid transparent;
-  }
-  .contact-links a:hover {
-    color: var(--ink);
-    border-bottom-color: var(--line);
-  }
-  .contact-email {
-    color: var(--dim);
-    font-size: 10px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    border-top: 1px solid var(--line);
-    margin-top: 2rem;
-  }
-  footer span {
-    color: rgba(237,233,225,.18);
-    font-size: 10px;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 640px) {
-    #about { grid-template-columns: 1fr; gap: 3rem; }
-    .hero-foot { flex-direction: column; gap: 1rem; }
-    .hero-roles { text-align: left; }
-    .contact-row { flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-    .work-item { grid-template-columns: 2rem 1fr; }
-    .w-meta { display: none; }
-    body { cursor: auto; }
-    .cursor { display: none; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
 
-<div class="cursor" id="cur"></div>
+<div class="cur" id="cur"></div>
+
+<video class="bg-video active" id="vid-0"
+    src="assets/videos/project1/lopp1.1.mp4"
+    autoplay muted loop playsinline
+    poster="./assets/images/The_Bluebelles.png">
+  </video>
+<!-- ═══════════════════════════════════════════
+  VIDEOS DE FONDO
+  - Agrega un <video> por cada proyecto
+  - src: ruta a tu archivo .mp4
+  - poster: frame estático de fallback (.jpg)
+  - El primero tiene class "active" → se ve al cargar
+═══════════════════════════════════════════ -->
+<div class="bg-videos">
+
+  <video class="bg-video active" id="vid-0"
+    src="assets/videos/project1/lopp1.1.mp4"
+    autoplay muted loop playsinline
+    poster="assets/images/poster1.jpg">
+  </video>
+
+  <video class="bg-video" id="vid-1"
+    src="assets/videos/project2/clip.mp4"
+    autoplay muted loop playsinline
+    poster="assets/images/poster2.jpg">
+  </video>
+
+  <video class="bg-video" id="vid-2"
+    src="assets/videos/project3/clip.mp4"
+    autoplay muted loop playsinline
+    poster="assets/images/poster3.jpg">
+  </video>
+
+  <video class="bg-video" id="vid-3"
+    src="assets/videos/project4/clip.mp4"
+    autoplay muted loop playsinline
+    poster="assets/images/poster4.jpg">
+  </video>
+
+  <video class="bg-video" id="vid-4"
+    src="assets/videos/project5/clip.mp4"
+    autoplay muted loop playsinline
+    poster="assets/images/poster5.jpg">
+  </video>
+
+</div>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-name">Jhared Tula</a>
-  <ul class="nav-links">
-    <li><a href="#work">Work</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
+  <a class="nav-tl" href="index.html">Jhared Tula</a>
+  <a class="nav-tr" href="sections/info.html">Info</a>
+  <a class="nav-bl" href="sections/journal.html">Journal</a>
+  <a class="nav-br" href="sections/index2.html">Index</a>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-body">
-    <p class="hero-index">Director · Editor · Producer — Atlanta, GA</p>
-    <h1 class="hero-name">Jhared<br><span>Tula</span></h1>
-    <div class="hero-foot">
-      <p class="hero-desc">Crafting films that live in the tension between what's shown and what's felt.</p>
-      <div class="hero-roles">Director<br>Editor<br>Producer</div>
-    </div>
+<!-- PROJECT LIST -->
+<!--
+  Para agregar un proyecto:
+  1. Agrega un <video> arriba con el nuevo src
+  2. Copia una línea .proj-link
+  3. Cambia el texto y el data-vid al índice del video (0, 1, 2...)
+  4. Cambia href al link de Vimeo
+-->
+<main class="projects-wrap">
+  <div class="projects">
+    <a class="proj-link" href="#" data-vid="0">Beneath the Canopy</a>
+    <a class="proj-link" href="#" data-vid="1">4:47 AM</a>
+    <a class="proj-link" href="#" data-vid="2">Drift</a>
+    <a class="proj-link" href="#" data-vid="3">No Signal</a>
+    <a class="proj-link" href="#" data-vid="4">Oleander</a>
   </div>
-</div>
-
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>Short Film</span><span class="sep"> · </span>
-    <span>Documentary</span><span class="sep"> · </span>
-    <span>Atlanta, GA</span><span class="sep"> · </span>
-    <span>Direction</span><span class="sep"> · </span>
-    <span>Editing</span><span class="sep"> · </span>
-    <span>Production</span><span class="sep"> · </span>
-    <span>Film School</span><span class="sep"> · </span>
-    <span>Short Film</span><span class="sep"> · </span>
-    <span>Documentary</span><span class="sep"> · </span>
-    <span>Atlanta, GA</span><span class="sep"> · </span>
-    <span>Direction</span><span class="sep"> · </span>
-    <span>Editing</span><span class="sep"> · </span>
-    <span>Production</span><span class="sep"> · </span>
-    <span>Film School</span><span class="sep"> · </span>
-  </div>
-</div>
-
-<!-- WORK -->
-<div id="work">
-  <div class="work-header">
-    <span class="work-header-label">Selected Work</span>
-    <span class="work-count">05</span>
-  </div>
-
-  <!--
-    Para cada proyecto:
-    - Cambia el texto dentro de .w-title
-    - Cambia .w-meta (tipo / año / roles)
-    - Cambia data-img con la ruta a tu imagen (ej. "images/proyecto1.jpg")
-    - Cambia el href al link de Vimeo o a una página de detalle
-  -->
-
-  <a class="work-item" href="#" data-img="images/proyecto1.jpg">
-    <span class="w-num">01</span>
-    <span class="w-title">Beneath the Canopy</span>
-    <span class="w-meta">Short Film<br>2024<br>Dir / Edit</span>
-  </a>
-
-  <a class="work-item" href="#" data-img="images/proyecto2.jpg">
-    <span class="w-num">02</span>
-    <span class="w-title">4:47 AM</span>
-    <span class="w-meta">Documentary<br>2024<br>Dir / Prod</span>
-  </a>
-
-  <a class="work-item" href="#" data-img="images/proyecto3.jpg">
-    <span class="w-num">03</span>
-    <span class="w-title">Drift</span>
-    <span class="w-meta">Short Film<br>2023<br>Edit / Prod</span>
-  </a>
-
-  <a class="work-item" href="#" data-img="images/proyecto4.jpg">
-    <span class="w-num">04</span>
-    <span class="w-title">No Signal</span>
-    <span class="w-meta">Documentary<br>2023<br>Director</span>
-  </a>
-
-  <a class="work-item" href="#" data-img="images/proyecto5.jpg">
-    <span class="w-num">05</span>
-    <span class="w-title">Oleander</span>
-    <span class="w-meta">Short Film<br>2022<br>Dir / Edit / Prod</span>
-  </a>
-</div>
-
-<!-- ABOUT -->
-<div id="about">
-  <div class="about-left">
-    <p class="about-tag">About</p>
-    <p class="about-statement">Stories that resist<br><em>easy answers.</em></p>
-    <p class="about-body">
-      I'm Jhared Tula, a filmmaker studying at [University Name] in Atlanta, Georgia.
-      My work sits at the intersection of narrative and documentary — I'm drawn to
-      the moments that refuse to be resolved.<br><br>
-      As a director, editor, and producer, I've shaped projects from first idea to
-      final cut. I believe the edit is where a film's soul is found.
-    </p>
-  </div>
-  <div class="about-right">
-    <div class="about-row">
-      <span class="about-row-label">Location</span>
-      <span class="about-row-val">Atlanta, GA<br>United States</span>
-    </div>
-    <div class="about-row">
-      <span class="about-row-label">Roles</span>
-      <span class="about-row-val">Director<br>Editor · Producer</span>
-    </div>
-    <div class="about-row">
-      <span class="about-row-label">Training</span>
-      <span class="about-row-val">[University Name]<br>Film Studies</span>
-    </div>
-    <div class="about-row">
-      <span class="about-row-label">Languages</span>
-      <span class="about-row-val">English<br>Spanish</span>
-    </div>
-    <div class="about-row">
-      <span class="about-row-label">Currently</span>
-      <span class="about-row-val">In development<br>New short film</span>
-    </div>
-    <div class="about-row">
-      <span class="about-row-label">Coords</span>
-      <span class="about-row-val">33°44′N 84°23′W</span>
-    </div>
-  </div>
-</div>
-
-<!-- CONTACT -->
-<div id="contact">
-  <p class="contact-headline">Got a story<br>worth <em>chasing?</em></p>
-  <div class="contact-row">
-    <div class="contact-links">
-      <!-- Cambia el href por el email real, Vimeo e Instagram -->
-      <a href="mailto:Jhared@example.com">Email</a>
-      <a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a>
-      <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-    </div>
-    <span class="contact-email">Jhared@example.com</span>
-  </div>
-</div>
-
-<footer>
-  <span>Jhared Tula · Filmmaker · © 2026</span>
-  <span>Atlanta, GA — 33°44′N 84°23′W</span>
-</footer>
-
-<!-- FLOATING PREVIEW (sigue al cursor) -->
-<div class="w-preview" id="preview">
-  <img src="" id="previewImg" alt="">
-</div>
+</main>
 
 <script>
-  // ── Cursor personalizado ──
-  const cur = document.getElementById('cur');
-  const preview = document.getElementById('preview');
-  const previewImg = document.getElementById('previewImg');
+  // Cursor
+ const cur = document.getElementById('cur');
 
-  document.addEventListener('mousemove', e => {
-    cur.style.left = e.clientX + 'px';
-    cur.style.top  = e.clientY + 'px';
-    preview.style.left = (e.clientX + 24) + 'px';
-    preview.style.top  = (e.clientY - 88) + 'px';
-  });
+// oculto hasta que el mouse se mueva
+cur.style.opacity = '0';
 
-  // ── Preview de imagen al hover en proyectos ──
-  document.querySelectorAll('.work-item').forEach(item => {
-    const img = item.dataset.img;
-    item.addEventListener('mouseenter', () => {
-      cur.classList.add('big');
-      if (img) {
-        previewImg.src = img;
-        preview.style.opacity = '1';
-        preview.style.transform = 'scale(1) rotate(0)';
-      }
-    });
-    item.addEventListener('mouseleave', () => {
-      cur.classList.remove('big');
-      preview.style.opacity = '0';
-      preview.style.transform = 'scale(.92) rotate(-1deg)';
+document.addEventListener('mousemove', e => {
+  cur.style.opacity = '1';
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+  // Video switcher
+  const videos = document.querySelectorAll('.bg-video');
+  let active = 0;
+
+  function showVideo(i) {
+    if (i === active) return;
+    videos[active].classList.remove('active');
+    videos[i].classList.add('active');
+    active = i;
+  }
+
+  document.querySelectorAll('.proj-link').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      showVideo(parseInt(link.dataset.vid));
     });
   });
-
-  // ── Hero: rota entre imágenes de fondo ──
-  // Reemplaza estas URLs por tus propias imágenes (ej. "images/hero1.jpg")
-  const heroBg = document.getElementById('heroBg');
-  const heroImgs = [
-    'images/hero1.jpg',
-    'images/hero2.jpg',
-    'images/hero3.jpg',
-  ];
-  let ci = 0;
-  heroBg.style.backgroundImage = `url('${heroImgs[0]}')`;
-
-  setInterval(() => {
-    ci = (ci + 1) % heroImgs.length;
-    heroBg.style.backgroundImage = `url('${heroImgs[ci]}')`;
-  }, 4500);
 </script>
 
 </body>

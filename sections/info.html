@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Info — Jhared Tula</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../index.css">
+<style>
+  html, body { overflow: hidden; height: 100%; }
+
+  .info-wrap {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    overflow-y: auto;
+    padding: 3.5rem 1.4rem 4rem;
+    scrollbar-width: none;
+  }
+  .info-wrap::-webkit-scrollbar { display: none; }
+
+  /* ── SECCIÓN: label izq + contenido der ── */
+  .info-section {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 2rem;
+    padding: 2.2rem 0;
+    max-width: 900px;
+    /* sin border-top */
+  }
+
+  .section-label {
+    font-size: 16px;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    padding-top: .1rem;
+  }
+
+  .section-body {
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.75;
+    letter-spacing: 0em;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+  }
+
+  .section-body p + p { margin-top: 1.2rem; }
+
+  .section-body a {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity .2s;
+  }
+  .section-body a:hover { opacity: .5; }
+
+  .contact-block { margin-bottom: 1.4rem; }
+  .contact-block:last-child { margin-bottom: 0; }
+  .contact-org {
+    display: block;
+    margin-bottom: .15rem;
+  }
+  .contact-email {
+  display: block;
+  opacity: .55;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  width: fit-content;
+}
+
+  @media (max-width: 600px) {
+    body { cursor: auto; }
+    .cur { display: none; }
+    .info-section { grid-template-columns: 1fr; gap: .8rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+
+<div class="bg-static" style="background-image: url('../assets/images/imageabout.png')"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-tl" href="../index.html">Jhared Tula</a>
+  <a class="nav-tr" href="info.html">Info</a>
+  <a class="nav-bl" href="journal.html">Journal</a>
+  <a class="nav-br" href="index2.html">Index</a>
+</nav>
+
+<div class="info-wrap">
+
+  <!-- ── ABOUT ── -->
+  <div class="info-section">
+    <span class="section-label">About</span>
+    <div class="section-body">
+      <p>
+        Jhared Tula is a filmmaker based in Chattanooga, TN. His work sits at the intersection
+        of narrative and documentary — drawn to moments that refuse to be resolved.
+      </p>
+      <p>
+        As a director, editor, and producer, he has shaped projects from first idea
+        to final cut. He believes the edit is where a film's soul is found.
+      </p>
+      <p>
+        His work has been recognized at film festivals and student showcases across
+        the American South.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── CONTACT ── -->
+  <div class="info-section">
+    <span class="section-label">Contact</span>
+    <div class="section-body">
+      <div class="contact-block">
+        <span class="contact-org">Personal</span>
+        <a class="contact-email" href="mailto:JharedTula@example.com">JharedTula@example.com</a>
+        <a class="contact-email" href="https://instagram.com/" target="_blank" rel="noopener">@JharedTula</a>
+      </div>
+      <div class="contact-block">
+        <span class="contact-org">Vimeo</span>
+        <a class="contact-email" href="https://vimeo.com/" target="_blank" rel="noopener">vimeo.com/JharedTula</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── RECOGNITION ── -->
+  <div class="info-section">
+    <span class="section-label">Recognition</span>
+    <div class="section-body">
+      <p>
+        <span style="display:block;margin-bottom:.15rem">Beneath the Canopy</span>
+        <span style="opacity:.55">SCAD Film Festival · Official Selection · 2024</span>
+      </p>
+      <p>
+        <span style="display:block;margin-bottom:.15rem">4:47 AM</span>
+        <span style="opacity:.55">Atlanta Film Festival · Official Selection · 2024</span>
+      </p>
+      <p>
+        <span style="display:block;margin-bottom:.15rem">Oleander</span>
+        <span style="opacity:.55">Student Showcase · Best Short · 2022</span>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const cur = document.getElementById('cur');
+
+// oculto hasta que el mouse se mueva
+cur.style.opacity = '0';
+
+document.addEventListener('mousemove', e => {
+  cur.style.opacity = '1';
+  cur.style.left = e.clientX + 'px';
+  cur.style.top  = e.clientY + 'px';
+});
+</script>
+
+</body>
+</html>
